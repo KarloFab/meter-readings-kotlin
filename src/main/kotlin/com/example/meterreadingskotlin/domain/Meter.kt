@@ -14,5 +14,5 @@ data class Meter(
     var id: Long? = null,
 
     @Column(name = "name")
-    var date: String? = null
+    var name: String? = null
 )
