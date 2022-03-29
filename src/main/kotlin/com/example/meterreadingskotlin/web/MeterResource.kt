@@ -12,16 +12,16 @@ import org.springframework.web.bind.annotation.RestController
 @RequestMapping("/api")
 class MeterResource(private val meterService: MeterService) {
 
-    private val log = LoggerFactory.getLogger(javaClass);
+    private val log = LoggerFactory.getLogger(javaClass)
 
     companion object {
         const val ENTITY_NAME = "meter"
     }
 
     /**
-     * `GET  /meter-readings` : get all the meterReadings.
+     * `GET  /meters` : get all the meters.
      *
-     * @return the [ResponseEntity] with status `200 (OK)` and the list of meterReadings in body.
+     * @return the [ResponseEntity] with status `200 (OK)` and the list of meters in body.
      */
     @GetMapping("/meters")
     fun getAllMeters(): MutableList<MeterDTO> {
