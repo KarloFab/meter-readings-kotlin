@@ -10,7 +10,7 @@ import org.springframework.web.bind.annotation.RestController
 
 @RestController
 @RequestMapping("/api")
-class MeterResource(private val meterService: MeterService) {
+class MeterController(private val meterService: MeterService) {
 
     private val log = LoggerFactory.getLogger(javaClass)
 
