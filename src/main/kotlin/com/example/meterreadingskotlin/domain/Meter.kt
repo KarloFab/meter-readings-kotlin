@@ -5,14 +5,11 @@ import javax.persistence.*
 
 @Entity
 @Table(name = "meter")
-data class Meter(
+data class Meter (
 
     @Id
-    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "sequenceGenerator")
-    @SequenceGenerator(name = "sequenceGenerator")
-    @Column(name = "id")
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     var id: Long? = null,
 
-    @Column(name = "name")
     var name: String? = null
 )
