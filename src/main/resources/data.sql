@@ -8,10 +8,10 @@ CREATE TABLE user
     id       INT AUTO_INCREMENT PRIMARY KEY,
     username VARCHAR(250) NOT NULL,
     password VARCHAR(250) NOT NULL,
-    enabled  BOOLEAN
+    is_enabled  BOOLEAN
 );
 
-INSERT INTO user (username, password, enabled)
+INSERT INTO user (username, password, is_enabled)
 VALUES ('admin', '$2a$10$e6H1Jgrft/scpmpzbMFO0uqF1gxqop73l5wOlwF30Aem6Tty1nI2G', true),
        ('azhwani', '$2a$10$kWWOnNOiToOxcIQ7UJ.cB.XFAflYvMS5BPASR1eqqojc6H9ELWUfC', true),
        ('guest', '$2a$10$SNsPkXTh0ryc82.D2HRJqOcY8sYh/TPnJW8WLqrERWkOq01ViWaCq', true);
