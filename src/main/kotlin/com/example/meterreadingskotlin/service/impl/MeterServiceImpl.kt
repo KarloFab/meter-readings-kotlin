@@ -5,6 +5,7 @@ import com.example.meterreadingskotlin.service.MeterService
 import com.example.meterreadingskotlin.service.dto.MeterDTO
 import com.example.meterreadingskotlin.service.mapper.MeterMapper
 import org.slf4j.LoggerFactory
+import org.springframework.cache.annotation.CacheEvict
 import org.springframework.cache.annotation.Cacheable
 import org.springframework.stereotype.Service
 import java.util.*
@@ -19,6 +20,7 @@ class MeterServiceImpl(
 
     private val log = LoggerFactory.getLogger(javaClass);
 
+    @CacheEvict(value = ["meters"], allEntries = true)
     override fun save(meterDto: MeterDTO): MeterDTO {
         log.debug("Request to save Meter: $meterDto")
         var meter = meterMapper.toEntity(meterDto)
