@@ -5,6 +5,7 @@ import com.example.meterreadingskotlin.service.MeterService
 import com.example.meterreadingskotlin.service.dto.MeterDTO
 import com.example.meterreadingskotlin.service.mapper.MeterMapper
 import org.slf4j.LoggerFactory
+import org.springframework.cache.annotation.Cacheable
 import org.springframework.stereotype.Service
 import java.util.*
 import javax.transaction.Transactional
@@ -37,10 +38,21 @@ class MeterServiceImpl(
             .map { meterMapper.toDto(it) }
     }
 
+    @Cacheable("meters")
     override fun findAll(): MutableList<MeterDTO> {
         log.debug("Request to get all Meters")
+        simulateSlowService();
         return meterRepository.findAll()
             .mapTo(mutableListOf(), meterMapper::toDto)
+    }
+
+    private fun simulateSlowService() {
+        try {
+            val time = 3000L
+            Thread.sleep(time)
+        } catch (e: InterruptedException) {
+            throw IllegalStateException(e)
+        }
     }
 
     override fun findOne(id: Long): Optional<MeterDTO> {
