@@ -40,8 +40,9 @@ dependencies {
         exclude(module = "mockito-core")
     }
     testImplementation("org.junit.jupiter:junit-jupiter-api")
+    testImplementation("org.springframework.security:spring-security-test:5.6.2")
     testRuntimeOnly("org.junit.jupiter:junit-jupiter-engine")
-    testImplementation("com.ninja-squad:springmockk")
+    testImplementation("com.ninja-squad:springmockk:3.0.1")
 
     kapt("org.mapstruct:mapstruct-processor:1.4.2.Final")
 }

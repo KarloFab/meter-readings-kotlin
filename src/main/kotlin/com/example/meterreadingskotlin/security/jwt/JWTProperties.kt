@@ -4,7 +4,7 @@ import org.springframework.beans.factory.annotation.Value
 import org.springframework.stereotype.Component
 
 @Component
-class JwtProperties {
+class JWTProperties {
 
     @Value("\${jwt.token.validity.in.seconds}")
     var tokenValidityInMilliseconds: Long = 0

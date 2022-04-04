@@ -4,7 +4,6 @@ import io.jsonwebtoken.*
 import io.jsonwebtoken.io.Decoders
 import io.jsonwebtoken.security.Keys
 import org.slf4j.LoggerFactory
-import org.springframework.beans.factory.annotation.Value
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken
 import org.springframework.security.core.Authentication
 import org.springframework.security.core.authority.SimpleGrantedAuthority
@@ -20,7 +19,7 @@ private const val AUTHORITIES_KEY = "auth"
 private const val INVALID_JWT_TOKEN = "Invalid JWT token."
 
 @Component
-class JWTProvider(jwtProperties: JwtProperties) {
+class JWTProvider(jwtProperties: JWTProperties) {
     private val log = LoggerFactory.getLogger(javaClass)
 
     private var jwtParser: JwtParser? = null
