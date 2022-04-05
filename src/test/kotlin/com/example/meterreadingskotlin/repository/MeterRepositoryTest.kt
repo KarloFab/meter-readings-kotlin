@@ -28,4 +28,14 @@ class MeterRepositoryTest {
         assertThat(meter == foundMeters[0])
     }
 
+    @Test
+    fun whenSaveMeter_thenReturnMeterWithId() {
+        val meter = Meter()
+        meter.name = "Test"
+
+        val savedMeter = meterRepository.save(meter)
+
+        assertThat(savedMeter.name == meter.name)
+        assertThat(savedMeter.id).isNotNull
+    }
 }
