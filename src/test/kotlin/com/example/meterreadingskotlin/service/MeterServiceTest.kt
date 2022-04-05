@@ -25,20 +25,22 @@ class MeterServiceTest {
     @InjectMockKs
     lateinit var meterServiceImpl: MeterServiceImpl
 
+    private val meterTestName = "Test name";
+
     @BeforeEach
     fun setUp() = MockKAnnotations.init(this)
 
     @Test
     fun whenGetAllMeters_ThenReturnMeters() {
-        val meter = Meter(1, "Test name")
-        val meterDTO = MeterDTO(1, "Test name")
+        val meter = Meter(1, meterTestName)
+        val meterDTO = MeterDTO(1, meterTestName)
 
         //given
         every { meterRepository.findAll() } returns listOf(meter)
         every { meterMapper.toDto(meter) } returns meterDTO
 
         //when
-        val result = meterServiceImpl.findAll();
+        val result = meterServiceImpl.findAll()
 
         //then
 
@@ -46,5 +48,31 @@ class MeterServiceTest {
 
         assertEquals(meterDTO.id, result[0].id)
         assertEquals(meterDTO.name, result[0].name)
+    }
+
+    @Test
+    fun whenSaveNewMeter_thenReturnSavedMeter() {
+        val meterDtoToSave = MeterDTO()
+        meterDtoToSave.name = meterTestName
+
+        val meterToSave = Meter()
+        meterToSave.name = meterTestName
+
+        val savedMeter = Meter(1, meterTestName)
+        val meterDTO = MeterDTO(1, meterTestName)
+
+        //given
+        every { meterMapper.toEntity(meterDtoToSave) } returns meterToSave
+        every { meterRepository.save(meterToSave) } returns savedMeter
+        every { meterMapper.toDto(savedMeter) } returns meterDTO
+
+        //when
+        val result = meterServiceImpl.save(meterDtoToSave)
+
+        //then
+        verify(exactly = 1) { meterRepository.save(meterToSave) }
+
+        assertEquals(meterDTO.id, result.id)
+        assertEquals(meterDTO.name, result.name)
     }
 }
