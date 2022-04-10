@@ -33,11 +33,11 @@ class MeterController(private val meterService: MeterService) {
         return meterService.save(meterDTO)
     }
 
-    @DeleteMapping("/meter/{id}")
+    @DeleteMapping("/meters/{id}")
     fun deleteMeter(@PathVariable id: Long): ResponseEntity<Void> {
         log.debug("REST request to delete meter : $id")
 
         meterService.delete(id)
-        return ResponseEntity.noContent().build()
+        return ResponseEntity.ok().build()
     }
 }
