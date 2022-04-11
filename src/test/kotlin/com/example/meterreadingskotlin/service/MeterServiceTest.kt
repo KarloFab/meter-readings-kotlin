@@ -75,4 +75,20 @@ class MeterServiceTest {
         assertEquals(meterDTO.id, result.id)
         assertEquals(meterDTO.name, result.name)
     }
+
+    @Test
+    fun deleteMeterById() {
+        val meterId = 1L
+
+        //given
+        every { meterRepository.deleteById(meterId) } returns Unit
+
+        //when
+        meterServiceImpl.delete(meterId)
+
+        //then
+        verify(exactly = 1) {
+            meterRepository.deleteById(meterId)
+        }
+    }
 }

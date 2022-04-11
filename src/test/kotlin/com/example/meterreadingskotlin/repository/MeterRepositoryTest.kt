@@ -6,6 +6,7 @@ import org.junit.jupiter.api.Test
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest
 import org.springframework.boot.test.autoconfigure.orm.jpa.TestEntityManager
+import org.springframework.data.repository.findByIdOrNull
 
 @DataJpaTest
 class MeterRepositoryTest {
@@ -37,5 +38,21 @@ class MeterRepositoryTest {
 
         assertThat(savedMeter.name == meter.name)
         assertThat(savedMeter.id).isNotNull
+    }
+
+    @Test
+    fun deleteMeterById() {
+        val meter = Meter()
+        meter.name = "Test"
+
+        entityManager.persist(meter)
+        entityManager.flush()
+
+        val meterId = meter.id!!
+        meterRepository.deleteById(meterId)
+
+        val deletedMeter = meterRepository.findByIdOrNull(meterId)
+
+        assertThat(deletedMeter).isNull()
     }
 }
