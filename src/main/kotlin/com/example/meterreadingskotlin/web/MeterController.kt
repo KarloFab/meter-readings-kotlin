@@ -5,6 +5,7 @@ import com.example.meterreadingskotlin.service.dto.MeterDTO
 import org.slf4j.LoggerFactory
 import org.springframework.http.ResponseEntity
 import org.springframework.web.bind.annotation.*
+import java.util.*
 
 @RestController
 @RequestMapping("/api")
@@ -31,6 +32,17 @@ class MeterController(private val meterService: MeterService) {
     fun saveNewMeter(@RequestBody meterDTO: MeterDTO): MeterDTO {
         log.debug("REST request to save new meter")
         return meterService.save(meterDTO)
+    }
+
+    @PutMapping("/meters/{id}")
+    fun updateMeter(
+        @PathVariable(value = "id", required = false) id: Long,
+        @RequestBody meterDTO: MeterDTO
+    ): ResponseEntity<MeterDTO> {
+        log.debug("REST request to update Meter : {}, {}", id, meterDTO)
+
+        val result = meterService.save(meterDTO)
+        return ResponseEntity.ok().body(result)
     }
 
     @DeleteMapping("/meters/{id}")
