@@ -44,7 +44,7 @@ class MeterControllerTest( @Autowired val mockMvc: MockMvc) {
         val savedMeterDto = MeterDTO(1, "Test name")
 
         every { meterService.save(meterDto) } returns (savedMeterDto)
-        // Get all the meters
+
         mockMvc.perform(MockMvcRequestBuilders.post("/api/meters").contentType(MediaType.APPLICATION_JSON)
             .content(convertObjectToJsonBytes(meterDto)))
             .andExpect(MockMvcResultMatchers.status().isOk)
@@ -54,13 +54,30 @@ class MeterControllerTest( @Autowired val mockMvc: MockMvc) {
     }
 
     @Test
+    fun updateMeter() {
+        val meterId = 1L
+
+        val meter = MeterDTO(meterId, "Updated name")
+
+        every { meterService.save(meter) } returns (meter)
+
+
+        mockMvc.perform(MockMvcRequestBuilders.put("/api/meters/$meterId").contentType(MediaType.APPLICATION_JSON)
+            .content(convertObjectToJsonBytes(meter)))
+            .andExpect(MockMvcResultMatchers.status().isOk)
+            .andExpect(MockMvcResultMatchers.content().contentType(MediaType.APPLICATION_JSON_VALUE))
+            .andExpect(MockMvcResultMatchers.jsonPath("$.id").value((meter.id?.toInt())))
+            .andExpect(MockMvcResultMatchers.jsonPath("$.name").value((meter.name.toString())))
+    }
+
+    @Test
     fun deleteMeter() {
         val meterId = 1L
 
         every { meterService.delete(meterId) } returns Unit
-        // Get all the meters
-        mockMvc.perform(MockMvcRequestBuilders.delete("/api/meters/$meterId").contentType(MediaType.APPLICATION_JSON)
-            .content(convertObjectToJsonBytes(meterId)))
+
+        mockMvc.perform(MockMvcRequestBuilders.delete("/api/meters/$meterId")
+            .contentType(MediaType.APPLICATION_JSON))
             .andExpect(MockMvcResultMatchers.status().isOk)
     }
 }
