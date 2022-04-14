@@ -2,10 +2,9 @@ package com.example.meterreadingskotlin.domain
 
 import javax.persistence.*
 
-
 @Entity
-@Table(name = "meter")
-data class Meter (
+@Table(name = "meter_reading")
+data class MeterReading(
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -13,6 +12,8 @@ data class Meter (
 
     var name: String? = null,
 
-    @OneToMany
-    var meterReadings: List<MeterReading>
+    var electricityConsumption: Double? = null,
+
+    @ManyToOne
+    var meter: Meter
 )
