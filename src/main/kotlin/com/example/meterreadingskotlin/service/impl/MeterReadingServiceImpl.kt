@@ -6,8 +6,12 @@ import com.example.meterreadingskotlin.service.MeterReadingService
 import com.example.meterreadingskotlin.service.dto.MeterReadingDTO
 import com.example.meterreadingskotlin.service.mapper.MeterMapper
 import com.example.meterreadingskotlin.service.mapper.MeterReadingMapper
+import org.springframework.stereotype.Service
 import java.util.*
+import javax.transaction.Transactional
 
+@Service
+@Transactional
 class MeterReadingServiceImpl(
     private val meterReadingRepository: MeterReadingRepository,
     private val meterReadingMapper: MeterReadingMapper

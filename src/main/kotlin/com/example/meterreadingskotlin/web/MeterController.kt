@@ -5,7 +5,6 @@ import com.example.meterreadingskotlin.service.dto.MeterDTO
 import org.slf4j.LoggerFactory
 import org.springframework.http.ResponseEntity
 import org.springframework.web.bind.annotation.*
-import java.util.*
 
 @RestController
 @RequestMapping("/api")
@@ -17,11 +16,7 @@ class MeterController(private val meterService: MeterService) {
         const val ENTITY_NAME = "meter"
     }
 
-    /**
-     * `GET  /meters` : get all the meters.
-     *
-     * @return the [ResponseEntity] with status `200 (OK)` and the list of meters in body.
-     */
+
     @GetMapping("/meters")
     fun getAllMeters(): MutableList<MeterDTO> {
         log.debug("REST request to get all Meters")
