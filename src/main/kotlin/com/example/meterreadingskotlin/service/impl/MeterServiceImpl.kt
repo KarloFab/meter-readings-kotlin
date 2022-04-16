@@ -18,7 +18,7 @@ class MeterServiceImpl(
     private val meterMapper: MeterMapper
 ) : MeterService {
 
-    private val log = LoggerFactory.getLogger(javaClass);
+    private val log = LoggerFactory.getLogger(javaClass)
 
     @CacheEvict(value = ["meters"], allEntries = true)
     override fun save(meterDto: MeterDTO): MeterDTO {
@@ -43,18 +43,8 @@ class MeterServiceImpl(
     @Cacheable("meters")
     override fun findAll(): MutableList<MeterDTO> {
         log.debug("Request to get all Meters")
-        simulateSlowService();
         return meterRepository.findAll()
             .mapTo(mutableListOf(), meterMapper::toDto)
-    }
-
-    private fun simulateSlowService() {
-        try {
-            val time = 3000L
-            Thread.sleep(time)
-        } catch (e: InterruptedException) {
-            throw IllegalStateException(e)
-        }
     }
 
     override fun findOne(id: Long): Optional<MeterDTO> {

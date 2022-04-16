@@ -14,5 +14,5 @@ data class Meter (
     var name: String? = null,
 
     @OneToMany
-    var meterReadings: List<MeterReading>
+    var meterReadings: List<MeterReading>? = null
 )
