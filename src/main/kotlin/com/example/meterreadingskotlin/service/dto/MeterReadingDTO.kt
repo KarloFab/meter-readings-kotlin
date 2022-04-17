@@ -6,4 +6,6 @@ data class MeterReadingDTO(
     var name: String? = null,
 
     var electricityConsumption: Double? = null,
+
+    var meterId: Long? = null
 )
