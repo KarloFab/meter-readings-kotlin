@@ -23,7 +23,7 @@ class MeterReadingServiceImpl(
     override fun save(meterReadingDTO: MeterReadingDTO): MeterReadingDTO {
         log.debug("Request to save MeterReading: $meterReadingDTO")
         var meterReading = meterReadingMapper.toEntity(meterReadingDTO)
-        val meter = meterRepository.findById(meterReadingDTO.meterId!!)
+        val meter = meterRepository.findById(meterReadingDTO.meterId)
         meterReading.meter = meter.get()
         meterReading = meterReadingRepository.save(meterReading)
         return meterReadingMapper.toDto(meterReading)
