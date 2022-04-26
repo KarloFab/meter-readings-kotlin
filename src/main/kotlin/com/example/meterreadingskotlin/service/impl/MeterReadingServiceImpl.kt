@@ -1,6 +1,7 @@
 package com.example.meterreadingskotlin.service.impl
 
 import com.example.meterreadingskotlin.repository.MeterReadingRepository
+import com.example.meterreadingskotlin.repository.MeterRepository
 import com.example.meterreadingskotlin.service.MeterReadingService
 import com.example.meterreadingskotlin.service.dto.MeterReadingDTO
 import com.example.meterreadingskotlin.service.mapper.MeterReadingMapper
@@ -13,7 +14,8 @@ import javax.transaction.Transactional
 @Transactional
 class MeterReadingServiceImpl(
     private val meterReadingRepository: MeterReadingRepository,
-    private val meterReadingMapper: MeterReadingMapper
+    private val meterReadingMapper: MeterReadingMapper,
+    private val meterRepository: MeterRepository
 ) : MeterReadingService {
 
     private val log = LoggerFactory.getLogger(javaClass)
@@ -21,6 +23,8 @@ class MeterReadingServiceImpl(
     override fun save(meterReadingDTO: MeterReadingDTO): MeterReadingDTO {
         log.debug("Request to save MeterReading: $meterReadingDTO")
         var meterReading = meterReadingMapper.toEntity(meterReadingDTO)
+        val meter = meterRepository.findById(meterReadingDTO.meterId!!)
+        meterReading.meter = meter.get()
         meterReading = meterReadingRepository.save(meterReading)
         return meterReadingMapper.toDto(meterReading)
     }
